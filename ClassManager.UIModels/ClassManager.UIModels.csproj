@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClassManager.Common\Common.csproj" />
+    <ProjectReference Include="..\ClassManager.DBModels\ClassManager.DBModels.csproj" />
+    <ProjectReference Include="..\ClassManager.Services\ClassManager.Services.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
