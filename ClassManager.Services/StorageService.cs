@@ -1,23 +1,25 @@
 using ClassManager.DBModels;
 
 namespace ClassManager.Services;
+
 // this class helps to get data from the fake storage
-public class StorageService
+public class StorageService : IStorageService
 {
-    private List<SubjectDBModel> _subjects;
-    private List<LessonDBModel> _lessons;
+    private List<SubjectDBModel> _subjects = new();
+    private List<LessonDBModel> _lessons = new();
+
     /// <summary>
     /// this method loads data from FakeStorage if haven`t loaded it yet
     /// </summary>
     private void LoadData()
     {
-        if (_subjects != null && _lessons != null)
+        if (_subjects.Count > 0 || _lessons.Count > 0)
             return;
+
         _subjects = FakeStorage.Subjects.ToList();
         _lessons = FakeStorage.Lessons.ToList();
-
-
     }
+
     /// <summary>
     /// this method returns a list of all subjects
     /// </summary>
@@ -32,6 +34,7 @@ public class StorageService
         }
         return resultList;
     }
+
     /// <summary>
     /// this method returns a list of lessons for one specific subject
     /// </summary>

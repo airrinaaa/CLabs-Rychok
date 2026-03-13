@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClassManager.MauiApp.Pages.LessonCreatePage"
+             Title="Create new Lesson">
+    <ScrollView>
+        <VerticalStackLayout Padding="10,20" Spacing="10">
+            
+            <Label Text="Subject" />
+            <Picker 
+                x:Name="pSubject" 
+                Title="Select Subject" />
+
+            <Label Text="Topic" />
+            <Entry 
+                x:Name="eTopic" 
+                Placeholder="Enter Lesson Topic" />
+
+            <Label Text="Lesson Type" />
+            <Picker 
+                x:Name="pLessonType" 
+                Title="Select Lesson Type" />
+
+            <Label Text="Date" />
+            <DatePicker 
+                x:Name="dpDate" />
+
+            <Label Text="Start Time" />
+            <TimePicker 
+                x:Name="tpStartTime" />
+
+            <Label Text="End Time" />
+            <TimePicker 
+                x:Name="tpEndTime" />
+
+            <Grid ColumnDefinitions="*,*" 
+                ColumnSpacing="10" 
+                Padding="10">
+                
+                <Button 
+                    Grid.Column="0" 
+                    Text="Create Lesson" 
+                    Clicked="CreateClicked"></Button>
+                    
+                <Button 
+                    Grid.Column="1" 
+                    Text="Back" 
+                    Clicked="BackClicked"></Button>
+                    
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

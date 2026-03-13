@@ -5,19 +5,20 @@ using ClassManager.DBModels;
 // this class is a UI model for a subject, it is used to view and edit data
 namespace ClassManager.UIModels
 {
-
     public class SubjectUIModel
     {
-        private SubjectDBModel _dbModel;
-        private string _name;
+        private SubjectDBModel? _dbModel;
+        private string _name = string.Empty;
         private double _credits;
         private SubjectSphere _sphere;
         
-        private List<LessonUIModel> _lessons;
+        private List<LessonUIModel>? _lessons;
+
         public Guid? Id 
         { 
             get => _dbModel?.Id;
         }
+
         public string Name
         { 
             get => _name; 
@@ -36,29 +37,46 @@ namespace ClassManager.UIModels
             set => _sphere = value;
         }
 
-        public IReadOnlyList<LessonUIModel> Lessons 
+        public IReadOnlyList<LessonUIModel> Lessons
         {
-            get => _lessons;
+            get => _lessons == null ? new List<LessonUIModel>() : _lessons;
         }
+
+        public int LessonsCount
+        {
+            get => _lessons == null ? -1 : _lessons.Count;
+        }
+
+        public string LessonsDesc
+        {
+            get => LessonsCount == -1 ? "Not Loaded" : LessonsCount.ToString();
+        }
+
+
         // calculates the total time of all lessons in this subject
         public TimeSpan DurationAll 
         {
             get 
             {
-                TimeSpan total = TimeSpan.Zero; 
+                TimeSpan total = TimeSpan.Zero;
+
+                if (_lessons == null)
+                    return total;
+
                 foreach (var lesson in _lessons)
                 {
                     total += lesson.LessonDuration;
                 }
+
                 return total;
             }
         }
+
         /// <summary>
         /// creates a new empty subject and a list for its lessons
         /// </summary>
         public SubjectUIModel()
         {
-            _lessons = new List<LessonUIModel>();
         }
 
         /// <summary>
@@ -94,15 +112,23 @@ namespace ClassManager.UIModels
         /// this method loads all lessons for this subject from the storage
         /// </summary>
         /// <param name="storage"></param>
-        public void LoadLessons(StorageService storage)
+        public void LoadLessons(IStorageService storage)
         {
-            if (Id == null || _lessons.Count > 0)
+            if (Id == null)
                 return;
+
+            if (_lessons != null && _lessons.Count > 0)
+                return;
+
+            _lessons = new List<LessonUIModel>();
+
             foreach (var lessonDB in storage.GetLessons(Id.Value))
             {
                 _lessons.Add(new LessonUIModel(lessonDB));
             }
         }
+
+
         public override string ToString()
         {
             return $"Subject: {Name} | Sphere: {Sphere} | Credits: {Credits} | Lessons: {Lessons.Count}";

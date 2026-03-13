@@ -2,6 +2,7 @@
   <Project Path="ClassManager.Common/Common.csproj" />
   <Project Path="ClassManager.DBModels/ClassManager.DBModels.csproj" />
   <Project Path="ClassManager.UIModels/ClassManager.UIModels.csproj" />
+  <Project Path="ClassManager.MauiApp/ClassManager.MauiApp.csproj" />
   <Project Path="ClassManager.Services/ClassManager.Services.csproj" />
   <Project Path="ClassManager.ConsoleApp/ClassManager.ConsoleApp.csproj" />
 </Solution>
