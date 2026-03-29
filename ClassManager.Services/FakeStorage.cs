@@ -3,6 +3,7 @@ using ClassManager.DBModels;
 using ClassManager.Common.Enums;
 namespace ClassManager.Services;
 // this static class is a fake database, it holds test data
+[Obsolete("This class was created for testing and learning purposes. It is not longer needed")]
 internal static class FakeStorage
 {
     private static readonly List<SubjectDBModel> _subjects;

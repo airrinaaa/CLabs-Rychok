@@ -3,6 +3,7 @@ using ClassManager.DBModels;
 namespace ClassManager.Services;
 
 // this class helps to get data from the fake storage
+[Obsolete("This class was created for testing and learning purposes. It is not longer needed")]
 public class StorageService : IStorageService
 {
     private List<SubjectDBModel> _subjects = new();

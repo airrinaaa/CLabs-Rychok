@@ -16,15 +16,25 @@ namespace ClassManager.DBModels
         private SubjectDBModel()
         {
         }
+
         /// <summary>
         /// constructor that creates a new subject and generates a new id
         /// </summary>
         /// <param name="name"></param>
         /// <param name="credits"></param>
         /// <param name="sphere"></param>
-        public SubjectDBModel(string name, double credits, SubjectSphere sphere)
+        public SubjectDBModel(string name, double credits, SubjectSphere sphere):this(Guid.NewGuid(), name, credits, sphere)
         {
-            Id = Guid.NewGuid();
+        }
+        /// <summary>
+        /// constructor that creates a new subject and generates a new id
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="credits"></param>
+        /// <param name="sphere"></param>
+        public SubjectDBModel(Guid guid, string name, double credits, SubjectSphere sphere)
+        {
+            Id = guid;
             Name = name;
             Credits = credits;
             Sphere = sphere;

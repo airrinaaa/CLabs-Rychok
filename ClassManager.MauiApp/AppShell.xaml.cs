@@ -5,10 +5,10 @@ namespace ClassManager.MauiApp;
 public partial class AppShell : Shell
 {
     public AppShell()
-    {
-        InitializeComponent();
+{
+    InitializeComponent();
 
-        Routing.RegisterRoute(nameof(SubjectDetailsPage), typeof(SubjectDetailsPage));
-        Routing.RegisterRoute(nameof(LessonDetailsPage), typeof(LessonDetailsPage));
-    }
+    Routing.RegisterRoute(nameof(SubjectDetailsPage), typeof(SubjectDetailsPage));
+    Routing.RegisterRoute(nameof(LessonDetailsPage), typeof(Pages.LessonDetailsPage));
+}
 }

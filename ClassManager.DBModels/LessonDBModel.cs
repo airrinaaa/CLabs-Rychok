@@ -17,6 +17,8 @@ namespace ClassManager.DBModels
 
         public TimeSpan EndTime { get; set; }
 
+        public TimeSpan Duration => EndTime - StartTime;
+
         public string Topic { get; set; }
 
         public LessonType Type { get; set; }
@@ -25,6 +27,19 @@ namespace ClassManager.DBModels
         private LessonDBModel()
         {
         }
+
+        /// <summary>
+        /// onstructor that creates a new lesson and generates a new id
+        /// </summary>
+        /// <param name="subjectId"></param>
+        /// <param name="date"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="topic"></param>
+        /// <param name="type"></param>
+        public LessonDBModel(Guid subjectId, DateTime date, TimeSpan startTime, TimeSpan endTime, string topic, LessonType type) : this(Guid.NewGuid(), subjectId, date, startTime, endTime, topic, type)
+{
+}
         /// <summary>
         /// constructor that creates a new lesson and generates a new id
         /// </summary>
@@ -34,9 +49,9 @@ namespace ClassManager.DBModels
         /// <param name="endTime"></param>
         /// <param name="topic"></param>
         /// <param name="type"></param>
-        public LessonDBModel(Guid subjectId, DateTime date, TimeSpan startTime, TimeSpan endTime, string topic, LessonType type)
+        public LessonDBModel(Guid guid, Guid subjectId, DateTime date, TimeSpan startTime, TimeSpan endTime, string topic, LessonType type)
         {
-            Id = Guid.NewGuid();
+            Id = guid;
             SubjectId = subjectId;
             Date = date;
             StartTime = startTime;

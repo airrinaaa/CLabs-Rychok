@@ -39,14 +39,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="14.0.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.41" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.41" />
 	</ItemGroup>
 
 	<ItemGroup>
-    	<ProjectReference Include="..\ClassManager.Common\Common.csproj" />
-		<ProjectReference Include="..\ClassManager.DBModels\ClassManager.DBModels.csproj" />
-		<ProjectReference Include="..\ClassManager.Services\ClassManager.Services.csproj" />
-		<ProjectReference Include="..\ClassManager.UIModels\ClassManager.UIModels.csproj" />
-    </ItemGroup>
+    <ProjectReference Include="..\ClassManager.Common\Common.csproj" />
+    <ProjectReference Include="..\ClassManager.DBModels\ClassManager.DBModels.csproj" />
+    <ProjectReference Include="..\ClassManager.Services\ClassManager.Services.csproj" />
+    <ProjectReference Include="..\ClassManager.UIModels\ClassManager.UIModels.csproj" />
+    <ProjectReference Include="..\ClassManager.Storage\ClassManager.Storage.csproj" />
+    <ProjectReference Include="..\ClassManager.Repositories\ClassManager.Repositories.csproj" />
+</ItemGroup>
 </Project>

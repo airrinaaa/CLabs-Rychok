@@ -4,6 +4,7 @@
   <ProjectReference Include="..\ClassManager.Common\Common.csproj" />
   <ProjectReference Include="..\ClassManager.DBModels\ClassManager.DBModels.csproj" />
   <ProjectReference Include="..\ClassManager.Services\ClassManager.Services.csproj" />
+  <ProjectReference Include="..\ClassManager.DTOModels\ClassManager.DTOModels.csproj" />
 </ItemGroup>
 
   <PropertyGroup>

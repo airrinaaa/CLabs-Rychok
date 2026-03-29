@@ -3,6 +3,8 @@
   <ItemGroup>
     <ProjectReference Include="..\ClassManager.Common\Common.csproj" />
     <ProjectReference Include="..\ClassManager.DBModels\ClassManager.DBModels.csproj" />
+    <ProjectReference Include="..\ClassManager.DTOModels\ClassManager.DTOModels.csproj" />
+    <ProjectReference Include="..\ClassManager.Repositories\ClassManager.Repositories.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

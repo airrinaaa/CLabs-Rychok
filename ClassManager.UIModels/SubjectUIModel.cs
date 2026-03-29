@@ -3,8 +3,10 @@ using ClassManager.Services;
 using ClassManager.DBModels;
 
 // this class is a UI model for a subject, it is used to view and edit data
+
 namespace ClassManager.UIModels
 {
+    [Obsolete("This class was created for testing and learning purposes. It is not longer needed")]
     public class SubjectUIModel
     {
         private SubjectDBModel? _dbModel;

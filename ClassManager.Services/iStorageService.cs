@@ -6,6 +6,7 @@ namespace ClassManager.Services;
 /// Interface for storage service providing access to subjects and lessons data.
 /// Implements Inversion of Control principle for dependency injection.
 /// </summary>
+[Obsolete("This class was created for testing and learning purposes. It is not longer needed")]
 public interface IStorageService
 {
     /// <summary>

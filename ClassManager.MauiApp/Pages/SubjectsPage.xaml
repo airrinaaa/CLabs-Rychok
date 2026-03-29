@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:ClassManager.MauiApp.Pages"
-             xmlns:models="clr-namespace:ClassManager.UIModels;assembly=ClassManager.UIModels"
+             xmlns:models="clr-namespace:ClassManager.DTOModels.Subjects;assembly=ClassManager.DTOModels"
+             xmlns:vm="clr-namespace:ClassManager.MauiApp.ViewModels"
              x:Class="ClassManager.MauiApp.Pages.SubjectsPage"
-             x:DataType="pages:SubjectsPage"
+             x:DataType="vm:SubjectViewModel"
              Title="Subjects">
 
     <CollectionView
-        x:Name="SubjectsCollectionView"
         ItemsSource="{Binding Subjects}"
-        Margin="10"
-        SelectionMode="Single"
-        SelectionChanged="SubjectSelected">
-
+        SelectionMode="None"
+        Margin="10">
 
         <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:SubjectUIModel">
-                <Border Stroke="Magenta" Padding="10" Margin="0,10">
+            <DataTemplate x:DataType="models:SubjectListDTO">
+                <Border Stroke="Magenta"
+                        Padding="10"
+                        Margin="0,10">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectViewModel}}, Path=LoadSubjectCommand}"
+                            CommandParameter="{Binding Id}" />
+                    </Border.GestureRecognizers>
+
                     <VerticalStackLayout>
-                        <Label Text="{Binding Name}" />
-                        <Label Text="{Binding Credits}" />
-                        <Label Text="{Binding Sphere}" />
-                        <Label Text="{Binding LessonsDesc, StringFormat='Lessons: {0}'}" />
+                        <Label HorizontalOptions="Center"
+                               FontAttributes="Bold"
+                               FontSize="18">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0} ({1} ECTS)">
+                                    <Binding Path="Name" />
+                                    <Binding Path="Credits" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
                     </VerticalStackLayout>
                 </Border>
             </DataTemplate>

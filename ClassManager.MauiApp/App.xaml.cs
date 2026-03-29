@@ -6,8 +6,6 @@ public partial class App : Application
 
     public App(AppShell shell, IServiceProvider services)
     {
-        InitializeComponent();
-        Services = services;
-        MainPage = shell;
+       MainPage = new AppShell();
     }
 }
