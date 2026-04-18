@@ -1,18 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\ClassManager.Common\Common.csproj" />
     <ProjectReference Include="..\ClassManager.DBModels\ClassManager.DBModels.csproj" />
     <ProjectReference Include="..\ClassManager.DTOModels\ClassManager.DTOModels.csproj" />
     <ProjectReference Include="..\ClassManager.Repositories\ClassManager.Repositories.csproj" />
+    <ProjectReference Include="..\ClassManager.Storage\ClassManager.Storage.csproj" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <TargetFrameworks>net10.0</TargetFrameworks>
-    <EnableWindowsTargeting>true</EnableWindowsTargeting>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+  </ItemGroup>
 
 </Project>

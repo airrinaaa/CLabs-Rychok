@@ -7,39 +7,97 @@
              x:DataType="vm:SubjectViewModel"
              Title="Subjects">
 
-    <CollectionView
-        ItemsSource="{Binding Subjects}"
-        SelectionMode="None"
-        Margin="10">
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
 
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:SubjectListDTO">
-                <Border Stroke="Magenta"
-                        Padding="10"
-                        Margin="0,10">
+        <SearchBar Grid.Row="0"
+                   Placeholder="Search subjects"
+                   Text="{Binding SearchText}"
+                   Margin="10,10,10,0" />
 
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectViewModel}}, Path=LoadSubjectCommand}"
-                            CommandParameter="{Binding Id}" />
-                    </Border.GestureRecognizers>
+        <Grid Grid.Row="1"
+              Margin="10,10,10,0"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="10">
+            <Picker Grid.Column="0"
+                    Title="Sphere"
+                    ItemsSource="{Binding SphereFilters}"
+                    SelectedItem="{Binding SelectedSphereFilter}" />
 
-                    <VerticalStackLayout>
-                        <Label HorizontalOptions="Center"
-                               FontAttributes="Bold"
-                               FontSize="18">
-                            <Label.Text>
-                                <MultiBinding StringFormat="{}{0} ({1} ECTS)">
-                                    <Binding Path="Name" />
-                                    <Binding Path="Credits" />
-                                </MultiBinding>
-                            </Label.Text>
-                        </Label>
-                    </VerticalStackLayout>
-                </Border>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
+            <Picker Grid.Column="1"
+                    Title="Sort"
+                    ItemsSource="{Binding SortOptions}"
+                    SelectedItem="{Binding SelectedSortOption}" />
+        </Grid>
 
-    </CollectionView>
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Subjects}"
+                        Margin="10"
+                        SelectionMode="None">
 
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:SubjectListDTO">
+                    <Border Stroke="Magenta"
+                            Padding="10"
+                            Margin="0,10">
+
+                        <VerticalStackLayout>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectViewModel}}, Path=LoadSubjectCommand}"
+                                    CommandParameter="{Binding Id}" />
+                            </Border.GestureRecognizers>
+
+                            <Label HorizontalOptions="Center"
+                                   FontAttributes="Bold"
+                                   FontSize="18">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0} ({1} ECTS)">
+                                        <Binding Path="Name" />
+                                        <Binding Path="Credits" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+
+                            <Label Text="{Binding Sphere}"
+                                   HorizontalOptions="Center"
+                                   FontSize="12"
+                                   TextColor="Gray" />
+
+                            <HorizontalStackLayout HorizontalOptions="Center"
+                                                   Spacing="10"
+                                                   Margin="0,10,0,0">
+                                <Button Text="Edit"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectViewModel}}, Path=EditSubjectCommand}"
+                                        CommandParameter="{Binding Id}" />
+
+                                <Button Text="Delete"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectViewModel}}, Path=DeleteSubjectCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <Button Grid.Row="3"
+                Text="Create new Subject"
+                Command="{Binding AddSubjectCommand}"
+                Margin="10" />
+
+        <BoxView Grid.RowSpan="4"
+                 IsVisible="{Binding IsBusy}"
+                 BackgroundColor="Gray"
+                 Opacity="0.2"
+                 InputTransparent="False" />
+
+        <ActivityIndicator Grid.RowSpan="4"
+                           Color="Magenta"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+    </Grid>
 </ContentPage>

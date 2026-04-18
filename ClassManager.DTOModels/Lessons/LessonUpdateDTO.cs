@@ -2,28 +2,24 @@ using ClassManager.Common.Enums;
 
 namespace ClassManager.DTOModels.Lessons
 {
-    public class LessonDetailsDTO
+    public class LessonUpdateDTO
     {
         public Guid Id { get; }
         public Guid SubjectId { get; }
-        public string Topic { get; }
         public DateTime Date { get; }
         public TimeSpan StartTime { get; }
         public TimeSpan EndTime { get; }
-        public TimeSpan LessonDuration => EndTime - StartTime;
-        public LessonType Type { get; }
+        public string Topic { get; }
+        public LessonType? Type { get; }
 
-        public string LessonInfo =>
-            $"{Type} lesson on \"{Topic}\" from {StartTime:hh\\:mm} to {EndTime:hh\\:mm}.";
-
-        public LessonDetailsDTO(Guid id, Guid subjectId, string topic, DateTime date, TimeSpan startTime, TimeSpan endTime, LessonType type)
+        public LessonUpdateDTO(Guid id, Guid subjectId, DateTime date, TimeSpan startTime, TimeSpan endTime, string topic, LessonType? type)
         {
             Id = id;
             SubjectId = subjectId;
-            Topic = topic;
             Date = date;
             StartTime = startTime;
             EndTime = endTime;
+            Topic = topic;
             Type = type;
         }
     }

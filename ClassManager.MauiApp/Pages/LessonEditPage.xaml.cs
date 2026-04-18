@@ -2,11 +2,11 @@ using ClassManager.MauiApp.ViewModels;
 
 namespace ClassManager.MauiApp.Pages;
 
-public partial class SubjectDetailsPage : ContentPage
+public partial class LessonEditPage : ContentPage
 {
-    private readonly SubjectDetailsViewModel _viewModel;
+    private readonly LessonEditViewModel _viewModel;
 
-    public SubjectDetailsPage(SubjectDetailsViewModel vm)
+    public LessonEditPage(LessonEditViewModel vm)
     {
         InitializeComponent();
         BindingContext = _viewModel = vm;

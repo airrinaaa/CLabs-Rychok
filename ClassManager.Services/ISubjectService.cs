@@ -1,11 +1,14 @@
 using ClassManager.DTOModels.Subjects;
-using System.Collections.Generic;
 
 namespace ClassManager.Services
 {
     public interface ISubjectService
     {
-        IEnumerable<SubjectListDTO> GetAllSubjects();
-        public SubjectDetailsDTO? GetSubject(Guid subjectId);
+        IAsyncEnumerable<SubjectListDTO> GetAllSubjectsAsync();
+        Task<SubjectDetailsDTO?> GetSubjectAsync(Guid subjectId);
+
+        Task CreateSubjectAsync(SubjectCreateDTO subjectCreateDTO);
+        Task UpdateSubjectAsync(SubjectUpdateDTO subjectUpdateDTO);
+        Task DeleteSubjectAsync(Guid subjectId);
     }
 }

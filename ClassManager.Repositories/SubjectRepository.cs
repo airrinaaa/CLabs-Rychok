@@ -1,6 +1,5 @@
 using ClassManager.DBModels;
 using ClassManager.Storage;
-using System.Collections.Generic;
 
 namespace ClassManager.Repositories
 {
@@ -13,13 +12,29 @@ namespace ClassManager.Repositories
             _storageContext = storageContext;
         }
 
-        public IEnumerable<SubjectDBModel> GetSubjects()
+        public IAsyncEnumerable<SubjectDBModel> GetSubjectsAsync()
         {
-            return _storageContext.GetSubjects();
+            return _storageContext.GetSubjectsAsync();
         }
-        public SubjectDBModel? GetSubject(Guid subjectId)
+
+        public Task<SubjectDBModel?> GetSubjectAsync(Guid subjectId)
         {
-            return _storageContext.GetSubject(subjectId);
+            return _storageContext.GetSubjectAsync(subjectId);
+        }
+
+        public Task SaveSubjectAsync(SubjectDBModel subject)
+        {
+            return _storageContext.SaveSubjectAsync(subject);
+        }
+
+        public Task UpdateSubjectAsync(SubjectDBModel subject)
+        {
+            return _storageContext.UpdateSubjectAsync(subject);
+        }
+
+        public Task DeleteSubjectAsync(Guid subjectId)
+        {
+            return _storageContext.DeleteSubjectAsync(subjectId);
         }
     }
 }

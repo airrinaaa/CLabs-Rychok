@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:ClassManager.MauiApp.ViewModels"
-             x:Class="ClassManager.MauiApp.Pages.LessonCreatePage"
-             x:DataType="vm:LessonCreateViewModel"
-             Title="Create Lesson"
+             x:Class="ClassManager.MauiApp.Pages.LessonEditPage"
+             x:DataType="vm:LessonEditViewModel"
+             Title="Edit Lesson"
              IsEnabled="{Binding IsNotBusy}">
 
     <Grid>
@@ -14,10 +14,6 @@
                 <Entry Placeholder="Topic"
                        Text="{Binding Topic}" />
 
-                <Picker Title="Lesson Type"
-                        ItemsSource="{Binding LessonTypes}"
-                        SelectedItem="{Binding Type}" />
-
                 <DatePicker Date="{Binding Date}" />
 
                 <Label Text="Start Time" />
@@ -26,26 +22,27 @@
                 <Label Text="End Time" />
                 <TimePicker Time="{Binding EndTime}" />
 
-                <Button Text="Create"
-                        Command="{Binding CreateLessonCommand}" />
+                <Picker Title="Lesson type"
+                        ItemsSource="{Binding LessonTypes}"
+                        SelectedItem="{Binding Type}" />
+
+                <Button Text="Save changes"
+                        Command="{Binding SaveChangesCommand}" />
 
                 <Button Text="Back"
                         Command="{Binding BackCommand}" />
-
             </VerticalStackLayout>
         </ScrollView>
 
-        <BoxView
-            IsVisible="{Binding IsBusy}"
-            BackgroundColor="Gray"
-            Opacity="0.2"
-            InputTransparent="False" />
+        <BoxView IsVisible="{Binding IsBusy}"
+                 BackgroundColor="Gray"
+                 Opacity="0.2"
+                 InputTransparent="False" />
 
-        <ActivityIndicator
-            Color="Magenta"
-            IsRunning="{Binding IsBusy}"
-            IsVisible="{Binding IsBusy}"
-            VerticalOptions="Center"
-            HorizontalOptions="Center" />
+        <ActivityIndicator Color="Magenta"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
     </Grid>
 </ContentPage>

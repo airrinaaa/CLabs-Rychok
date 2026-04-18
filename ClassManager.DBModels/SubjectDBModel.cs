@@ -1,5 +1,4 @@
-﻿
-using ClassManager.Common.Enums;
+﻿using ClassManager.Common.Enums;
 
 namespace ClassManager.DBModels
 {
@@ -7,13 +6,13 @@ namespace ClassManager.DBModels
     public class SubjectDBModel
     {
         // id is generated only once during the creation of the object and cannot be changed later
-        public Guid Id { get; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public double Credits { get; set; }
         public SubjectSphere Sphere { get; set; }
 
         // empty constructor
-        private SubjectDBModel()
+        public SubjectDBModel()
         {
         }
 
@@ -23,9 +22,10 @@ namespace ClassManager.DBModels
         /// <param name="name"></param>
         /// <param name="credits"></param>
         /// <param name="sphere"></param>
-        public SubjectDBModel(string name, double credits, SubjectSphere sphere):this(Guid.NewGuid(), name, credits, sphere)
+        public SubjectDBModel(string name, double credits, SubjectSphere sphere) : this(Guid.NewGuid(), name, credits, sphere)
         {
         }
+
         /// <summary>
         /// constructor that creates a new subject and generates a new id
         /// </summary>

@@ -4,46 +4,80 @@
              xmlns:vm="clr-namespace:ClassManager.MauiApp.ViewModels"
              x:Class="ClassManager.MauiApp.Pages.LessonDetailsPage"
              x:DataType="vm:LessonDetailsViewModel"
-             Title="{Binding CurrentLesson.Topic}"> <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+             Title="{Binding CurrentLesson.Topic}">
 
-            <Label Style="{StaticResource Headline}"
-                   Text="{Binding CurrentLesson.Topic}" 
-                   HorizontalOptions="Center" 
-                   HorizontalTextAlignment="Center" />
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="20">
 
-            <Border Stroke="Blue" Padding="20" Margin="10,0">
-                <VerticalStackLayout Spacing="15">
-                    
-                    <Label Text="{Binding CurrentLesson.Date, StringFormat='Date: {0:dd MMMM yyyy}'}" 
-                           FontSize="18" FontAttributes="Bold" />
-                    
-                    <Label Text="{Binding CurrentLesson.Type, Converter={StaticResource EnumToDisplayName}}"
-                        FontSize="18"
-                        TextColor="Magenta"
-                        FontAttributes="Bold" />
-                    
-                    <HorizontalStackLayout Spacing="5">
-                        <Label Text="Time:" FontSize="16" FontAttributes="Bold" />
-                        <Label Text="{Binding CurrentLesson.StartTime, StringFormat='{0:hh\\:mm}'}" FontSize="16" />
-                        <Label Text="-" FontSize="16" />
-                        <Label Text="{Binding CurrentLesson.EndTime, StringFormat='{0:hh\\:mm}'}" FontSize="16" />
-                    </HorizontalStackLayout>
+                <Label Style="{StaticResource Headline}"
+                       Text="{Binding CurrentLesson.Topic}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center" />
 
-                    <HorizontalStackLayout Spacing="5">
-                        <Label Text="Duration:" FontSize="16" FontAttributes="Bold" />
-                        <Label Text="{Binding CurrentLesson.LessonDuration.TotalMinutes, StringFormat='{0} minutes'}" FontSize="16" />
-                    </HorizontalStackLayout>
-                    
-                </VerticalStackLayout>
-            </Border>
+                <Border Stroke="Blue"
+                        Padding="20"
+                        Margin="10,0">
+                    <VerticalStackLayout Spacing="15">
 
-            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="10,0" CornerRadius="8">
-                <Label Text="{Binding CurrentLesson.LessonInfo}" 
-                       FontSize="16" 
-                       LineBreakMode="WordWrap" />
-            </Frame>
+                        <Label Text="{Binding CurrentLesson.Date, StringFormat='Date: {0:dd MMMM yyyy}'}"
+                               FontSize="18"
+                               FontAttributes="Bold" />
 
-        </VerticalStackLayout>
-    </ScrollView>
+                        <Label Text="{Binding CurrentLesson.Type}"
+                               FontSize="18"
+                               TextColor="Magenta"
+                               FontAttributes="Bold" />
+
+                        <HorizontalStackLayout Spacing="5">
+                            <Label Text="Time:"
+                                   FontSize="16"
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding CurrentLesson.StartTime, StringFormat='{0:hh\\:mm}'}"
+                                   FontSize="16" />
+                            <Label Text="-"
+                                   FontSize="16" />
+                            <Label Text="{Binding CurrentLesson.EndTime, StringFormat='{0:hh\\:mm}'}"
+                                   FontSize="16" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="5">
+                            <Label Text="Duration:"
+                                   FontSize="16"
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding CurrentLesson.LessonDuration.TotalMinutes, StringFormat='{0} minutes'}"
+                                   FontSize="16" />
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="#F0F0F0"
+                        Padding="15"
+                        Margin="10,0"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 8">
+                    <Label Text="{Binding CurrentLesson.LessonInfo}"
+                           FontSize="16"
+                           LineBreakMode="WordWrap" />
+                </Border>
+
+                <Button Text="Edit Lesson"
+                        Command="{Binding EditLessonCommand}"
+                        Margin="10,0" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <BoxView IsVisible="{Binding IsBusy}"
+                 BackgroundColor="Gray"
+                 Opacity="0.2"
+                 InputTransparent="False" />
+
+        <ActivityIndicator Color="Magenta"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+    </Grid>
 </ContentPage>

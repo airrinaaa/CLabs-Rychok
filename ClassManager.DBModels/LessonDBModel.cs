@@ -6,10 +6,10 @@ namespace ClassManager.DBModels
     public class LessonDBModel
     {
         // id is generated only once during the creation of the object and cannot be changed later
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
         // subjectId is generated only once during the creation of the object and cannot be changed later
-        public Guid SubjectId { get; }
+        public Guid SubjectId { get; set; }
 
         public DateTime Date { get; set; }
 
@@ -17,14 +17,13 @@ namespace ClassManager.DBModels
 
         public TimeSpan EndTime { get; set; }
 
-        public TimeSpan Duration => EndTime - StartTime;
 
         public string Topic { get; set; }
 
         public LessonType Type { get; set; }
 
         // empty constructor
-        private LessonDBModel()
+        public LessonDBModel()
         {
         }
 
@@ -37,9 +36,11 @@ namespace ClassManager.DBModels
         /// <param name="endTime"></param>
         /// <param name="topic"></param>
         /// <param name="type"></param>
-        public LessonDBModel(Guid subjectId, DateTime date, TimeSpan startTime, TimeSpan endTime, string topic, LessonType type) : this(Guid.NewGuid(), subjectId, date, startTime, endTime, topic, type)
-{
-}
+        public LessonDBModel(Guid subjectId, DateTime date, TimeSpan startTime, TimeSpan endTime, string topic, LessonType type)
+            : this(Guid.NewGuid(), subjectId, date, startTime, endTime, topic, type)
+        {
+        }
+
         /// <summary>
         /// constructor that creates a new lesson and generates a new id
         /// </summary>
@@ -59,6 +60,5 @@ namespace ClassManager.DBModels
             Topic = topic;
             Type = type;
         }
-
     }
 }

@@ -2,14 +2,14 @@ using ClassManager.Common.Enums;
 
 namespace ClassManager.DTOModels.Subjects
 {
-    public class SubjectListDTO
+    public class SubjectUpdateDTO
     {
         public Guid Id { get; }
         public string Name { get; }
         public double Credits { get; }
-        public SubjectSphere Sphere { get; }
+        public SubjectSphere? Sphere { get; }
 
-        public SubjectListDTO(Guid id, string name, double credits, SubjectSphere sphere)
+        public SubjectUpdateDTO(Guid id, string name, double credits, SubjectSphere? sphere)
         {
             Id = id;
             Name = name;

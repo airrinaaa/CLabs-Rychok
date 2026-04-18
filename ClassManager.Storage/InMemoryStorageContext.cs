@@ -52,7 +52,7 @@ namespace ClassManager.Storage
             _lessons.Add(new LessonRecord(Guid.NewGuid(), progId, new DateTime(2026, 03, 24), new TimeSpan(14, 0, 0), new TimeSpan(15, 30, 0), "Interfaces", LessonType.Lecture));
         }
 
-        public IEnumerable<SubjectDBModel> GetSubjects()
+        public async IAsyncEnumerable<SubjectDBModel> GetSubjectsAsync()
         {
             foreach (var subject in _subjects)
             {
@@ -60,42 +60,106 @@ namespace ClassManager.Storage
             }
         }
 
-        public IEnumerable<LessonDBModel> GetLessonsBySubject(Guid subjectId)
+
+        public Task<IEnumerable<LessonDBModel>> GetLessonsBySubjectAsync(Guid subjectId)
         {
-            return _lessons
+            IEnumerable<LessonDBModel> result = _lessons
                 .Where(lesson => lesson.SubjectId == subjectId)
-                .Select(lesson => new LessonDBModel(lesson.Id, lesson.SubjectId, lesson.Date, lesson.StartTime, lesson.EndTime, lesson.Topic, lesson.Type));
+                .Select(lesson => new LessonDBModel(lesson.Id, lesson.SubjectId, lesson.Date, lesson.StartTime, lesson.EndTime, lesson.Topic, lesson.Type)).ToList();
+
+            return Task.FromResult(result);
         }
 
-        public SubjectDBModel GetSubject(Guid subjectId)
+        public Task<SubjectDBModel?> GetSubjectAsync(Guid subjectId)
         {
             var subject = _subjects.FirstOrDefault(s => s.Id == subjectId);
-            return subject is null ? null : new SubjectDBModel(subject.Id, subject.Name, subject.Credits, subject.Sphere);
+
+            SubjectDBModel? result = subject is null
+                ? null
+                : new SubjectDBModel(subject.Id, subject.Name, subject.Credits, subject.Sphere);
+
+            return Task.FromResult(result);
         }
 
-        public TimeSpan GetTotalDurationBySubject(Guid subjectId)
+        public Task<TimeSpan> GetTotalDurationBySubjectAsync(Guid subjectId)
         {
             long totalTicks = _lessons
                 .Where(lesson => lesson.SubjectId == subjectId)
                 .Sum(lesson => (lesson.EndTime - lesson.StartTime).Ticks);
 
-            return new TimeSpan(totalTicks);
+            return Task.FromResult(new TimeSpan(totalTicks));
         }
-       public LessonDBModel? GetLesson(Guid lessonId)
+        public Task<LessonDBModel?> GetLessonAsync(Guid lessonId)
         {
-            var record = _lessons.FirstOrDefault(l => l.Id == lessonId); 
-            
-            if (record == null) 
-                return null;
-            return new LessonDBModel(
-                record.Id,
-                record.SubjectId,
-                record.Date,
-                record.StartTime,
-                record.EndTime,
-                record.Topic,
-                record.Type
-            );
+            var record = _lessons.FirstOrDefault(l => l.Id == lessonId);
+
+            LessonDBModel? result = record == null
+                ? null
+                : new LessonDBModel(record.Id, record.SubjectId, record.Date, record.StartTime, record.EndTime, record.Topic, record.Type);
+
+            return Task.FromResult(result);
+        }
+        public Task SaveLessonAsync(LessonDBModel lesson)
+        {
+            _lessons.Add(new LessonRecord(lesson.Id, lesson.SubjectId, lesson.Date, lesson.StartTime, lesson.EndTime, lesson.Topic, lesson.Type));
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteLessonAsync(Guid lessonId)
+        {
+            var lesson = _lessons.FirstOrDefault(l => l.Id == lessonId);
+
+            if (lesson != null)
+            {
+                _lessons.Remove(lesson);
+            }
+
+            return Task.CompletedTask;
+        }
+        public Task SaveSubjectAsync(SubjectDBModel subject)
+        {
+            _subjects.Add(new SubjectRecord(subject.Id, subject.Name, subject.Credits, subject.Sphere));
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateSubjectAsync(SubjectDBModel subject)
+        {
+            var oldSubject = _subjects.FirstOrDefault(s => s.Id == subject.Id);
+
+            if (oldSubject != null)
+            {
+                _subjects.Remove(oldSubject);
+                _subjects.Add(new SubjectRecord(subject.Id, subject.Name, subject.Credits, subject.Sphere));
+            }
+
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteSubjectAsync(Guid subjectId)
+        {
+            var subject = _subjects.FirstOrDefault(s => s.Id == subjectId);
+
+            if (subject != null)
+            {
+                _subjects.Remove(subject);
+            }
+
+            _lessons.RemoveAll(l => l.SubjectId == subjectId);
+
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateLessonAsync(LessonDBModel lesson)
+        {
+            var oldLesson = _lessons.FirstOrDefault(l => l.Id == lesson.Id);
+
+            if (oldLesson != null)
+            {
+                _lessons.Remove(oldLesson);
+                _lessons.Add(new LessonRecord(lesson.Id, lesson.SubjectId, lesson.Date, lesson.StartTime, lesson.EndTime, lesson.Topic, lesson.Type));
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

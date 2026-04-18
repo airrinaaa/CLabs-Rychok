@@ -1,13 +1,15 @@
 using ClassManager.DBModels;
-using System;
-using System.Collections.Generic;
 
 namespace ClassManager.Repositories
 {
     public interface ILessonRepository
     {
-        IEnumerable<LessonDBModel> GetLessonsBySubject(Guid subjectId);
-        TimeSpan GetTotalDurationBySubject(Guid subjectId);
-        LessonDBModel? GetLesson(Guid lessonId);
+        Task<IEnumerable<LessonDBModel>> GetLessonsBySubjectAsync(Guid subjectId);
+        Task<TimeSpan> GetTotalDurationBySubjectAsync(Guid subjectId);
+        Task<LessonDBModel?> GetLessonAsync(Guid lessonId);
+
+        Task SaveLessonAsync(LessonDBModel lesson);
+        Task UpdateLessonAsync(LessonDBModel lesson);
+        Task DeleteLessonAsync(Guid lessonId);
     }
 }

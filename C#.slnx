@@ -1,8 +1,9 @@
 <Solution>
   <Project Path="ClassManager.Common/Common.csproj" />
   <Project Path="ClassManager.DBModels/ClassManager.DBModels.csproj" />
-  <Project Path="ClassManager.UIModels/ClassManager.UIModels.csproj" />
-  <Project Path="ClassManager.MauiApp/ClassManager.MauiApp.csproj" />
+  <Project Path="ClassManager.DTOModels/ClassManager.DTOModels.csproj" />
+  <Project Path="ClassManager.Repositories/ClassManager.Repositories.csproj" />
+  <Project Path="ClassManager.Storage/ClassManager.Storage.csproj" />
   <Project Path="ClassManager.Services/ClassManager.Services.csproj" />
-  <Project Path="ClassManager.ConsoleApp/ClassManager.ConsoleApp.csproj" />
+  <Project Path="ClassManager.MauiApp/ClassManager.MauiApp.csproj" />
 </Solution>

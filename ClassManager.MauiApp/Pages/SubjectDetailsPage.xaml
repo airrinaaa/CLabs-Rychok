@@ -7,11 +7,12 @@
              x:DataType="vm:SubjectDetailsViewModel"
              Title="Subject Details">
 
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto,Auto">
 
-        <Border Stroke="Blue"
+        <Border Grid.Row="0"
+                Stroke="Blue"
                 Padding="10"
-                Margin="0,10">
+                Margin="10,10,10,0">
             <VerticalStackLayout>
 
                 <Label Style="{StaticResource Headline}"
@@ -19,7 +20,7 @@
                        HorizontalOptions="Center" />
 
                 <Label Style="{StaticResource SubHeadline}"
-                       Text="{Binding CurrentSubject.Sphere, Converter={StaticResource EnumToDisplayName}}"
+                       Text="{Binding CurrentSubject.Sphere}"
                        HorizontalOptions="Center" />
 
                 <Label Text="{Binding CurrentSubject.Credits, StringFormat='{0} ECTS Credits'}"
@@ -29,11 +30,30 @@
                 <Label Text="{Binding CurrentSubject.TotalDuration, StringFormat='Total duration: {0:hh\\:mm}'}"
                        HorizontalOptions="Center"
                        TextColor="Gray" />
-
             </VerticalStackLayout>
         </Border>
 
-        <CollectionView Grid.Row="1"
+        <SearchBar Grid.Row="1"
+                   Placeholder="Search lessons"
+                   Text="{Binding SearchText}"
+                   Margin="10,10,10,0" />
+
+        <Grid Grid.Row="2"
+              Margin="10,10,10,0"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="10">
+            <Picker Grid.Column="0"
+                    Title="Type"
+                    ItemsSource="{Binding TypeFilters}"
+                    SelectedItem="{Binding SelectedTypeFilter}" />
+
+            <Picker Grid.Column="1"
+                    Title="Sort"
+                    ItemsSource="{Binding SortOptions}"
+                    SelectedItem="{Binding SelectedSortOption}" />
+        </Grid>
+
+        <CollectionView Grid.Row="3"
                         ItemsSource="{Binding Lessons}"
                         Margin="10"
                         SelectionMode="None">
@@ -43,13 +63,13 @@
                             Padding="10"
                             Margin="0,10">
 
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectDetailsViewModel}}, Path=LoadLessonCommand}"
-                                CommandParameter="{Binding Id}" />
-                        </Border.GestureRecognizers>
-
                         <VerticalStackLayout>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectDetailsViewModel}}, Path=LoadLessonCommand}"
+                                    CommandParameter="{Binding Id}" />
+                            </Border.GestureRecognizers>
 
                             <Label Style="{StaticResource SubHeadline}">
                                 <Label.Text>
@@ -60,9 +80,21 @@
                                 </Label.Text>
                             </Label>
 
-                            <Label Text="{Binding Type, Converter={StaticResource EnumToDisplayName}}"
+                            <Label Text="{Binding Type}"
                                    HorizontalOptions="Center"
                                    FontSize="12" />
+
+                            <HorizontalStackLayout HorizontalOptions="Center"
+                                                   Spacing="10"
+                                                   Margin="0,10,0,0">
+                                <Button Text="Edit"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectDetailsViewModel}}, Path=EditLessonCommand}"
+                                        CommandParameter="{Binding Id}" />
+
+                                <Button Text="Delete"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectDetailsViewModel}}, Path=DeleteLessonCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </HorizontalStackLayout>
 
                         </VerticalStackLayout>
                     </Border>
@@ -70,5 +102,27 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+        <Button Grid.Row="4"
+                Text="Edit Subject"
+                Command="{Binding EditSubjectCommand}"
+                Margin="10,0,10,0" />
+
+        <Button Grid.Row="5"
+                Text="Create new Lesson"
+                Command="{Binding AddLessonCommand}"
+                Margin="10" />
+
+        <BoxView Grid.RowSpan="6"
+                 IsVisible="{Binding IsBusy}"
+                 BackgroundColor="Gray"
+                 Opacity="0.2"
+                 InputTransparent="False" />
+
+        <ActivityIndicator Grid.RowSpan="6"
+                           Color="Magenta"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
     </Grid>
 </ContentPage>

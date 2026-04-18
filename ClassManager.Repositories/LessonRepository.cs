@@ -1,7 +1,5 @@
 using ClassManager.DBModels;
 using ClassManager.Storage;
-using System;
-using System.Collections.Generic;
 
 namespace ClassManager.Repositories
 {
@@ -14,19 +12,34 @@ namespace ClassManager.Repositories
             _storageContext = storageContext;
         }
 
-        public IEnumerable<LessonDBModel> GetLessonsBySubject(Guid subjectId)
+        public Task<IEnumerable<LessonDBModel>> GetLessonsBySubjectAsync(Guid subjectId)
         {
-            return _storageContext.GetLessonsBySubject(subjectId);
+            return _storageContext.GetLessonsBySubjectAsync(subjectId);
         }
 
-        public TimeSpan GetTotalDurationBySubject(Guid subjectId)
+        public Task<TimeSpan> GetTotalDurationBySubjectAsync(Guid subjectId)
         {
-            return _storageContext.GetTotalDurationBySubject(subjectId);
+            return _storageContext.GetTotalDurationBySubjectAsync(subjectId);
         }
 
-        public LessonDBModel? GetLesson(Guid lessonId)
+        public Task<LessonDBModel?> GetLessonAsync(Guid lessonId)
         {
-            return _storageContext.GetLesson(lessonId);
+            return _storageContext.GetLessonAsync(lessonId);
+        }
+
+        public Task SaveLessonAsync(LessonDBModel lesson)
+        {
+            return _storageContext.SaveLessonAsync(lesson);
+        }
+
+        public Task UpdateLessonAsync(LessonDBModel lesson)
+        {
+            return _storageContext.UpdateLessonAsync(lesson);
+        }
+
+        public Task DeleteLessonAsync(Guid lessonId)
+        {
+            return _storageContext.DeleteLessonAsync(lessonId);
         }
     }
 }

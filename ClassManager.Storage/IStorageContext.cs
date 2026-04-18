@@ -1,15 +1,22 @@
 using ClassManager.DBModels;
-using System;
-using System.Collections.Generic;
 
 namespace ClassManager.Storage
 {
     public interface IStorageContext
     {
-        IEnumerable<SubjectDBModel> GetSubjects();
-        IEnumerable<LessonDBModel> GetLessonsBySubject(Guid subjectId);
-        SubjectDBModel? GetSubject(Guid subjectId);
-        TimeSpan GetTotalDurationBySubject(Guid subjectId);
-        LessonDBModel? GetLesson(Guid lessonId);
+        IAsyncEnumerable<SubjectDBModel> GetSubjectsAsync();
+        Task<SubjectDBModel?> GetSubjectAsync(Guid subjectId);
+
+        Task<IEnumerable<LessonDBModel>> GetLessonsBySubjectAsync(Guid subjectId);
+        Task<TimeSpan> GetTotalDurationBySubjectAsync(Guid subjectId);
+        Task<LessonDBModel?> GetLessonAsync(Guid lessonId);
+
+        Task SaveLessonAsync(LessonDBModel lesson);
+        Task UpdateLessonAsync(LessonDBModel lesson);
+        Task DeleteLessonAsync(Guid lessonId);
+
+        Task SaveSubjectAsync(SubjectDBModel subject);
+        Task UpdateSubjectAsync(SubjectDBModel subject);
+        Task DeleteSubjectAsync(Guid subjectId);
     }
 }

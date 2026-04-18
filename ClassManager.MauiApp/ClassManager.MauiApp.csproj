@@ -48,10 +48,6 @@
 
 	<ItemGroup>
     <ProjectReference Include="..\ClassManager.Common\Common.csproj" />
-    <ProjectReference Include="..\ClassManager.DBModels\ClassManager.DBModels.csproj" />
-    <ProjectReference Include="..\ClassManager.Services\ClassManager.Services.csproj" />
-    <ProjectReference Include="..\ClassManager.UIModels\ClassManager.UIModels.csproj" />
-    <ProjectReference Include="..\ClassManager.Storage\ClassManager.Storage.csproj" />
-    <ProjectReference Include="..\ClassManager.Repositories\ClassManager.Repositories.csproj" />
+	<ProjectReference Include="..\ClassManager.Services\ClassManager.Services.csproj" />
 </ItemGroup>
 </Project>

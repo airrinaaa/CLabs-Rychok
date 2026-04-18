@@ -2,9 +2,9 @@ using ClassManager.MauiApp.ViewModels;
 
 namespace ClassManager.MauiApp.Pages;
 
-public partial class LessonCreatePage : ContentPage
+public partial class SubjectCreatePage : ContentPage
 {
-    public LessonCreatePage(LessonCreateViewModel vm)
+    public SubjectCreatePage(SubjectCreateViewModel vm)
     {
         InitializeComponent();
         BindingContext = vm;
